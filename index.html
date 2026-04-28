@@ -306,7 +306,7 @@ input,select,textarea{font:inherit}
 
 /* PRINT */
 /* ── PLAN BANNER ──────────────────────────────── */
-.plan-banner{position:relative;min-height:260px;display:flex;align-items:flex-end;overflow:hidden;background:var(--navy)}
+.plan-banner{position:relative;min-height:300px;display:flex;align-items:flex-end;overflow:hidden;background:var(--navy)}
 .plan-banner-bg{position:absolute;inset:0;background-size:cover;background-position:center 35%;filter:brightness(.3)}
 .plan-banner-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,35,71,.98) 0%,rgba(15,52,96,.88) 50%,rgba(15,52,96,.72) 100%)}
 .plan-banner-c{position:relative;z-index:1;padding:2rem 1.5rem 1.75rem;width:100%;max-width:900px;margin:0 auto}
@@ -355,7 +355,7 @@ input,select,textarea{font:inherit}
 /* ── TOOLKIT CARDS ──────────────────────────────── */
 .toolkit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.875rem}
 .toolkit-card{background:#fff;border:1px solid var(--g200);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
-.toolkit-card-thumb{height:90px;display:flex;align-items:center;justify-content:center;font-size:2rem}
+.toolkit-card-thumb{height:110px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:2rem}
 .toolkit-card-body{padding:.875rem 1rem}
 .toolkit-card-tag{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--g400);margin-bottom:.25rem}
 .toolkit-card-title{font-size:.88rem;font-weight:800;color:var(--navy);margin-bottom:.375rem}
@@ -366,6 +366,35 @@ input,select,textarea{font:inherit}
 .btn-tk-ghost:hover{background:var(--g200)}
 .btn-tk-primary{background:var(--navy);color:#fff}
 .btn-tk-primary:hover{background:var(--navy-d)}
+
+/* ── TOOLKIT THUMB PHOTO ─────────────────────────── */
+.toolkit-thumb-bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.toolkit-thumb-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.75rem}
+
+/* ── PHASE HEADER BAND ──────────────────────────── */
+.phase-hd-band{padding:1.25rem 1.5rem .875rem}
+.phase-hd-band.awareness{background:linear-gradient(135deg,#1E3A8A 0%,#2563EB 100%)}
+.phase-hd-band.exposure{background:linear-gradient(135deg,#4C1D95 0%,#7C3AED 100%)}
+.phase-hd-band.experience{background:linear-gradient(135deg,#064E3B 0%,#0F766E 100%)}
+.phase-hd-band.commitment{background:linear-gradient(135deg,#78350F 0%,#B45309 100%)}
+.phase-hd-row{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.phase-hd-label{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:.25rem}
+.phase-hd-name{font-size:1.1rem;font-weight:900;color:#fff;margin-bottom:.25rem;letter-spacing:-.01em}
+.phase-hd-desc{font-size:.78rem;color:rgba(255,255,255,.75);line-height:1.5;max-width:540px}
+.phase-hd-prog-wrap{flex-shrink:0;text-align:right}
+.phase-hd-bar-bg{width:110px;background:rgba(255,255,255,.2);border-radius:4px;height:4px;overflow:hidden;margin:.25rem 0 .25rem auto}
+.phase-hd-bar-fill{height:100%;border-radius:4px;background:var(--gold);transition:width .4s}
+.phase-hd-prog-txt{font-size:.7rem;font-weight:700;color:rgba(255,255,255,.7)}
+
+/* ── VIEW HEADER (Risks / Progress) ─────────────── */
+.view-hd{background:var(--navy);padding:1.5rem}
+.view-hd-inner{max-width:900px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+.view-hd-eyebrow{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:rgba(255,255,255,.45);margin-bottom:.25rem}
+.view-hd-title{font-size:1.25rem;font-weight:900;color:#fff;letter-spacing:-.02em;margin-bottom:.25rem}
+.view-hd-sub{font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.55;max-width:480px}
+.view-hd-stats{display:flex;gap:1.75rem;align-items:flex-end;flex-shrink:0}
+.view-hd-stat-n{font-size:1.75rem;font-weight:900;color:#fff;line-height:1}
+.view-hd-stat-l{font-size:.6rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;margin-top:.15rem}
 
 /* ── TASK CARD REDESIGN ─────────────────────────── */
 .task-card2{background:#fff;border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;margin-bottom:.625rem;border-left:3px solid var(--g200)}
@@ -412,7 +441,7 @@ input,select,textarea{font:inherit}
 .phase-header-desc{font-size:.78rem;color:var(--g600)}
 
 /* ── COACH BANNER ───────────────────────────────── */
-.coach-photo-banner{position:relative;min-height:130px;background:var(--navy);overflow:hidden}
+.coach-photo-banner{position:relative;min-height:150px;background:var(--navy);overflow:hidden}
 .coach-photo-banner-bg{position:absolute;inset:0;background-size:cover;background-position:center 25%;filter:brightness(.25);opacity:.5}
 .coach-photo-banner-c{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:1.5rem;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem}
 .coach-photo-banner-title{font-size:1.5rem;font-weight:900;color:#fff;letter-spacing:-.02em;margin-bottom:.25rem}
@@ -556,7 +585,7 @@ input,select,textarea{font:inherit}
   <div id="v-plan" class="view"><div class="view-inner" id="plan-content"></div></div>
   <div id="v-tasks" class="view" style="display:none"></div>
   <div id="v-risks" class="view" style="display:none"></div>
-  <div id="v-progress" class="view" style="display:none"><div class="view-inner" id="prog-content"></div></div>
+  <div id="v-progress" class="view" style="display:none"></div>
   <div id="v-coach" class="view" style="display:none"></div>
 </div>
 
@@ -1163,7 +1192,10 @@ function renderPlan(){
         <h2 class="plan-sec-title">Toolkits & resources</h2>
         <div class="toolkit-grid">
           <div class="toolkit-card">
-            <div class="toolkit-card-thumb" style="background:linear-gradient(135deg,#1E3A8A,#3B82F6)">🎤</div>
+            <div class="toolkit-card-thumb">
+              <div class="toolkit-thumb-bg" style="background-image:url(${IMG_PLAN})"></div>
+              <div class="toolkit-thumb-ov" style="background:rgba(29,78,216,.78)">🎤</div>
+            </div>
             <div class="toolkit-card-body">
               <div class="toolkit-card-tag">Recruitment</div>
               <div class="toolkit-card-title">Student Ambassador Toolkit</div>
@@ -1173,7 +1205,10 @@ function renderPlan(){
             </div>
           </div>
           <div class="toolkit-card">
-            <div class="toolkit-card-thumb" style="background:linear-gradient(135deg,#065F46,#34D399)">👥</div>
+            <div class="toolkit-card-thumb">
+              <div class="toolkit-thumb-bg" style="background-image:url(${IMG_PLAN});background-position:center 70%"></div>
+              <div class="toolkit-thumb-ov" style="background:rgba(6,95,70,.76)">👥</div>
+            </div>
             <div class="toolkit-card-body">
               <div class="toolkit-card-tag">Retention</div>
               <div class="toolkit-card-title">Cohort Planning Toolkit</div>
@@ -1183,11 +1218,14 @@ function renderPlan(){
             </div>
           </div>
           <div class="toolkit-card">
-            <div class="toolkit-card-thumb" style="background:linear-gradient(135deg,#0F3460,#1D4ED8)">📄</div>
+            <div class="toolkit-card-thumb">
+              <div class="toolkit-thumb-bg" style="background-image:url(${IMG_PLAN});background-position:center 20%"></div>
+              <div class="toolkit-thumb-ov" style="background:rgba(15,52,96,.82)">📄</div>
+            </div>
             <div class="toolkit-card-body">
               <div class="toolkit-card-tag">Full Reference</div>
               <div class="toolkit-card-title">FRNYC Playbook PDF</div>
-              <div class="toolkit-card-desc">The full FRNYC Recruitment & Retention Playbook. For teams who want the complete reference.</div>
+              <div class="toolkit-card-desc">The complete FRNYC Recruitment & Retention Playbook for your team.</div>
               <div class="toolkit-card-when">Available any time</div>
               <a class="btn-toolkit btn-tk-primary" href="https://raw.githubusercontent.com/mmanipakone/frnycplaybook/main/playbook_v6.pdf" target="_blank" rel="noopener">Download PDF ↓</a>
             </div>
@@ -1217,14 +1255,27 @@ function renderTasks(){
   phases.forEach(p=>{
     phaseCounts[p]=TASKS.filter(t=>t.phase===p&&S.done.includes(t.id)).length+'/'+TASKS.filter(t=>t.phase===p).length;
   });
+  const phaseIdx=['awareness','exposure','experience','commitment'].indexOf(phase)+1;
+  const totalPhase=TASKS.filter(t=>t.phase===phase).length;
+  const donePhase=TASKS.filter(t=>t.phase===phase&&S.done.includes(t.id)).length;
+  const phasePct=totalPhase?Math.round(donePhase/totalPhase*100):0;
 
   document.getElementById('v-tasks').innerHTML=`
     <div class="tasks-tabs">
       ${phases.map(p=>`<button class="tab-btn ${p===phase?'active':''}" data-phase="${p}" onclick="setTaskPhase('${p}')">${cap(p)} <small style="opacity:.6;font-size:.65rem;margin-left:.25rem">${phaseCounts[p]}</small></button>`).join('')}
     </div>
-    <div class="phase-header">
-      <div class="phase-header-name">${cap(phase)}</div>
-      <div class="phase-header-desc">${PHASE_DESC[phase]||''}</div>
+    <div class="phase-hd-band ${phase}">
+      <div class="phase-hd-row">
+        <div>
+          <div class="phase-hd-label">Phase ${phaseIdx} of 4 · ${gradeLabel(S.grade)} · ${cap(S.season)}</div>
+          <div class="phase-hd-name">${cap(phase)}</div>
+          <div class="phase-hd-desc">${PHASE_DESC[phase]||''}</div>
+        </div>
+        <div class="phase-hd-prog-wrap">
+          <div class="phase-hd-bar-bg"><div class="phase-hd-bar-fill" style="width:${phasePct}%"></div></div>
+          <div class="phase-hd-prog-txt">${donePhase}/${totalPhase} done</div>
+        </div>
+      </div>
     </div>
     <div class="tasks-filter">
       <span class="filter-label">Grade:</span>
@@ -1308,9 +1359,24 @@ function setTaskSeasonFilter(s){ S.tSeason=s; saveS(); renderTasks(); }
 // ─── RISKS VIEW ───────────────────────────────────────────────────────────────
 function renderRisks(){
   const active=RISKS.filter(r=>riskStatus(r.id)!=='resolved');
+  const inprog=RISKS.filter(r=>riskStatus(r.id)==='in-progress');
   const resolved=RISKS.filter(r=>riskStatus(r.id)==='resolved');
 
   document.getElementById('v-risks').innerHTML=`
+    <div class="view-hd">
+      <div class="view-hd-inner">
+        <div>
+          <div class="view-hd-eyebrow">Risk Management</div>
+          <div class="view-hd-title">Active Risks & Mitigation</div>
+          <div class="view-hd-sub">Track and resolve risks that could prevent successful recruitment and retention this year.</div>
+        </div>
+        <div class="view-hd-stats">
+          <div><div class="view-hd-stat-n" style="color:#FCA5A5">${active.length}</div><div class="view-hd-stat-l">Active</div></div>
+          <div><div class="view-hd-stat-n" style="color:var(--gold)">${inprog.length}</div><div class="view-hd-stat-l">In Progress</div></div>
+          <div><div class="view-hd-stat-n" style="color:#6EE7B7">${resolved.length}</div><div class="view-hd-stat-l">Resolved</div></div>
+        </div>
+      </div>
+    </div>
     ${active.length?`
       <div class="risk-section-hd">ACTIVE RISKS (${active.length})</div>
       <div class="risk-list">${active.map(renderRiskCard).join('')}</div>`:'<div class="tasks-empty"><h3>All risks resolved ✓</h3><p>Great work. Keep monitoring as the year progresses.</p></div>'}
@@ -1370,36 +1436,51 @@ function renderProgress(){
   const rDone=RISKS.filter(r=>riskStatus(r.id)==='resolved').length;
   const rTotal=RISKS.length;
 
-  document.getElementById('prog-content').innerHTML=`
-    <h2 style="font-size:1.25rem;font-weight:900;color:var(--navy);margin-bottom:1.5rem;letter-spacing:-.02em">Progress Overview</h2>
-    <div class="prog-grid">
-      <div class="prog-card">
-        <div class="prog-card-n">${pct}%</div>
-        <div class="prog-card-l">Task completion (${doneAll.length}/${all.length} relevant tasks)</div>
-        <div class="prog-bar-wrap"><div class="prog-bar" style="width:${pct}%"></div></div>
-      </div>
-      <div class="prog-card">
-        <div class="prog-card-n">${rDone}/${rTotal}</div>
-        <div class="prog-card-l">Risks resolved</div>
-        <div class="prog-bar-wrap"><div class="prog-bar" style="width:${rTotal?Math.round(rDone/rTotal*100):0}%;background:var(--crimson)"></div></div>
-      </div>
-      <div class="prog-card">
-        <div class="prog-card-n">${S.done.length}</div>
-        <div class="prog-card-l">Total tasks completed (all grades/seasons)</div>
+  document.getElementById('v-progress').innerHTML=`
+    <div class="view-hd">
+      <div class="view-hd-inner">
+        <div>
+          <div class="view-hd-eyebrow">Progress Tracker</div>
+          <div class="view-hd-title">${pct===100?'Plan Complete ✓':'Plan Progress'}</div>
+          <div class="view-hd-sub">${pct===100?'All relevant tasks done. Keep monitoring risks and updating your coach summary.':'Tracking completion across FRNYC tasks for '+gradeLabel(S.grade)+' · '+cap(S.season)+'.'}</div>
+        </div>
+        <div class="view-hd-stats">
+          <div><div class="view-hd-stat-n">${pct}%</div><div class="view-hd-stat-l">Complete</div></div>
+          <div><div class="view-hd-stat-n" style="color:#6EE7B7">${rDone}</div><div class="view-hd-stat-l">Risks resolved</div></div>
+          <div><div class="view-hd-stat-n">${S.done.length}</div><div class="view-hd-stat-l">Total tasks</div></div>
+        </div>
       </div>
     </div>
-    <div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--g400);margin-bottom:.875rem">BY PHASE</div>
-    <div class="phase-prog">
-      ${phases.map(p=>{
-        const pt=TASKS.filter(t=>t.phase===p);
-        const pd=pt.filter(t=>S.done.includes(t.id)).length;
-        const pp=pt.length?Math.round(pd/pt.length*100):0;
-        return `<div class="phase-prog-row">
-          <span class="phase-pill ${p}">${cap(p)}</span>
-          <div class="phase-prog-bar-wrap"><div class="phase-prog-bar ${p}" style="width:${pp}%"></div></div>
-          <span class="phase-prog-txt">${pd}/${pt.length}</span>
-        </div>`;
-      }).join('')}
+    <div class="view-inner">
+      <div class="prog-grid">
+        <div class="prog-card">
+          <div class="prog-card-n">${pct}%</div>
+          <div class="prog-card-l">Task completion — ${doneAll.length}/${all.length} relevant tasks</div>
+          <div class="prog-bar-wrap"><div class="prog-bar" style="width:${pct}%"></div></div>
+        </div>
+        <div class="prog-card">
+          <div class="prog-card-n">${rDone}/${rTotal}</div>
+          <div class="prog-card-l">Risks resolved</div>
+          <div class="prog-bar-wrap"><div class="prog-bar" style="width:${rTotal?Math.round(rDone/rTotal*100):0}%;background:var(--crimson)"></div></div>
+        </div>
+        <div class="prog-card">
+          <div class="prog-card-n">${S.done.length}</div>
+          <div class="prog-card-l">Total tasks completed (all grades/seasons)</div>
+        </div>
+      </div>
+      <div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--g400);margin-bottom:.875rem">BY PHASE</div>
+      <div class="phase-prog">
+        ${phases.map(p=>{
+          const pt=TASKS.filter(t=>t.phase===p);
+          const pd=pt.filter(t=>S.done.includes(t.id)).length;
+          const pp=pt.length?Math.round(pd/pt.length*100):0;
+          return `<div class="phase-prog-row">
+            <span class="phase-pill ${p}">${cap(p)}</span>
+            <div class="phase-prog-bar-wrap"><div class="phase-prog-bar ${p}" style="width:${pp}%"></div></div>
+            <span class="phase-prog-txt">${pd}/${pt.length}</span>
+          </div>`;
+        }).join('')}
+      </div>
     </div>`;
 }
 
