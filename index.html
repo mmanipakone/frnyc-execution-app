@@ -307,7 +307,7 @@ input,select,textarea{font:inherit}
 /* PRINT */
 /* ── PLAN BANNER ──────────────────────────────── */
 .plan-banner{position:relative;min-height:300px;display:flex;align-items:flex-end;overflow:hidden;background:var(--navy)}
-.plan-banner-bg{position:absolute;inset:0;background-size:cover;background-position:center 15%}
+.plan-banner-bg{position:absolute;inset:0;background-size:cover;background-position:center top}
 .plan-banner-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,30,60,.96) 0%,rgba(10,30,60,.62) 48%,rgba(0,0,0,.3) 100%)}
 .plan-banner-c{position:relative;z-index:1;padding:1rem 1.5rem 1.75rem;width:100%;max-width:900px;margin:0 auto}
 .plan-banner-school{font-size:1.75rem;font-weight:900;color:#fff;letter-spacing:-.02em;line-height:1.1;margin-bottom:.375rem}
@@ -322,17 +322,16 @@ input,select,textarea{font:inherit}
 .plan-metric-l{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.72);margin-top:.375rem}
 
 /* ── ENROLLMENT COMMITMENTS ─────────────── */
-.commit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem}
-.commit-card{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:1.125rem 1.25rem;border-top:3px solid var(--g300)}
-.commit-card.complete{border-top-color:#059669}
-.commit-card.in-progress{border-top-color:var(--gold)}
-.commit-card-status{display:inline-block;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:.2rem .6rem;border-radius:20px;margin-bottom:.625rem}
-.commit-card-status.not-started{background:var(--g100);color:var(--g600)}
+.commit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.625rem}
+.commit-card{background:var(--g50);border:1px solid var(--g200);border-radius:var(--r);padding:.875rem 1rem;border-left:3px solid var(--g300);user-select:none}
+.commit-card.complete{border-left-color:#059669;background:#F0FDF4}
+.commit-card.in-progress{border-left-color:var(--gold);background:#FFFBEB}
+.commit-card-status{display:inline-block;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:.175rem .55rem;border-radius:20px;margin-bottom:.5rem}
 .commit-card-status.in-progress{background:#FEF3C7;color:#92400E}
 .commit-card-status.complete{background:#D1FAE5;color:#065F46}
-.commit-card-title{font-size:.875rem;font-weight:800;color:var(--navy);margin-bottom:.375rem;line-height:1.3}
+.commit-card-title{font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:.375rem;line-height:1.3}
 .commit-card-milestone-lbl{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--g400);margin-bottom:.15rem}
-.commit-card-milestone{font-size:.75rem;color:var(--g600);line-height:1.5}
+.commit-card-milestone{font-size:.72rem;color:var(--g600);line-height:1.5}
 
 /* ── PLAN PROGRESS BAR ──────────────────── */
 .plan-prog-section{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:1.25rem 1.5rem;margin-bottom:2rem}
@@ -364,8 +363,9 @@ input,select,textarea{font:inherit}
 .prio-meta-chip{font-size:.73rem;color:var(--g600);background:#fff;border:1px solid var(--g200);border-radius:6px;padding:.3rem .625rem;line-height:1.45}
 
 /* ── START HERE MODULE ─────────────────────────── */
-.start-here-module{background:var(--navy);border-radius:var(--r);padding:1.5rem 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;margin-bottom:2.5rem}
-.start-here-eyebrow{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:var(--gold);margin-bottom:.375rem}
+.start-here-module{background:var(--navy);border-radius:var(--r);padding:1.5rem 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.start-here-eyebrow{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:var(--gold);margin-bottom:.2rem}
+.start-here-helper{font-size:.73rem;color:rgba(255,255,255,.5);margin-bottom:.5rem;font-style:italic}
 .start-here-title{font-size:1.05rem;font-weight:900;color:#fff;margin-bottom:.3rem}
 .start-here-sub{font-size:.8rem;color:rgba(255,255,255,.7);line-height:1.5}
 .btn-start-tasks{background:var(--crimson);color:#fff;font-size:.88rem;font-weight:700;padding:.75rem 1.5rem;border-radius:50px;flex-shrink:0;white-space:nowrap;transition:transform .15s,box-shadow .15s;cursor:pointer}
@@ -1201,6 +1201,8 @@ function renderPlan(){
   const doneCount=relTasks.filter(t=>S.done.includes(t.id)).length;
   const progPct=commitmentProgress();
   const topPrio=prios[0];
+  const cmsTotal=cms.reduce((s,cm)=>s+cm.taskIds.length,0);
+  const cmsDone=cms.reduce((s,cm)=>s+cm.taskIds.filter(id=>S.done.includes(id)).length,0);
 
   document.getElementById('v-plan').innerHTML=`
     <!-- PHOTO BANNER -->
@@ -1226,30 +1228,24 @@ function renderPlan(){
 
     <div class="view-inner">
 
-      <!-- ENROLLMENT COMMITMENTS -->
-      <div class="plan-sec">
-        <div class="plan-sec-eyebrow">Your plan</div>
-        <h2 class="plan-sec-title">Enrollment Commitments</h2>
-        <p class="plan-sec-helper">Key commitments for ${gradeLabel(S.grade)} · ${cap(S.season)} based on your challenge focus. Mark tasks complete in the Task Board as your team acts on each one.</p>
-        <div class="commit-grid">
-          ${cms.map(cm=>{
-            const st=commitStatus(cm);
-            return `<div class="commit-card ${st}">
-              <span class="commit-card-status ${st}">${commitStatusLabel(st)}</span>
-              <div class="commit-card-title">${cm.title}</div>
-              <div class="commit-card-milestone-lbl">Done when</div>
-              <div class="commit-card-milestone">${cm.milestone}</div>
-            </div>`;
-          }).join('')}
+      <!-- START HERE (PRIMARY) -->
+      ${topPrio?`
+      <div class="start-here-module">
+        <div>
+          <div class="start-here-eyebrow">Start here</div>
+          <div class="start-here-helper">Most schools should start here</div>
+          <div class="start-here-title">${topPrio.title}</div>
+          <div class="start-here-sub">Next action: ${topPrio.action}</div>
         </div>
-      </div>
+        <button class="btn-start-tasks" onclick="showView('tasks')">Start with this action →</button>
+      </div>`:''}
 
       <!-- PROGRESS BAR -->
       <div class="plan-prog-section">
         <div class="plan-prog-hd">
           <div>
-            <div class="plan-prog-label">Progress toward your plan</div>
-            <div class="plan-prog-sub">Based on actions completed toward your recruitment and retention goals</div>
+            <div class="plan-prog-label">Progress toward your goals</div>
+            <div class="plan-prog-sub">${cmsDone} of ${cmsTotal} key actions completed</div>
           </div>
           <div class="plan-prog-pct">${progPct}%</div>
         </div>
@@ -1258,21 +1254,28 @@ function renderPlan(){
         </div>
       </div>
 
-      <!-- START HERE MODULE -->
-      ${topPrio?`
-      <div class="start-here-module">
-        <div>
-          <div class="start-here-eyebrow">Start here</div>
-          <div class="start-here-title">${topPrio.title}</div>
-          <div class="start-here-sub">Next action: ${topPrio.action}</div>
-        </div>
-        <button class="btn-start-tasks" onclick="showView('tasks')">Start with this action →</button>
-      </div>`:''}
-
-      <!-- RECOMMENDED PRIORITIES -->
+      <!-- YOUR ENROLLMENT GOALS -->
       <div class="plan-sec">
-        <div class="plan-sec-eyebrow">Recommended priorities</div>
-        <h2 class="plan-sec-title">Where to focus next</h2>
+        <div class="plan-sec-eyebrow">Your plan</div>
+        <h2 class="plan-sec-title">Your Enrollment Goals</h2>
+        <p class="plan-sec-helper">What your school is working toward for ${gradeLabel(S.grade)} · ${cap(S.season)}. Goals update automatically as your team completes actions in the Task Board.</p>
+        <div class="commit-grid">
+          ${cms.map(cm=>{
+            const st=commitStatus(cm);
+            return `<div class="commit-card ${st}">
+              ${st!=='not-started'?`<span class="commit-card-status ${st}">${commitStatusLabel(st)}</span>`:''}
+              <div class="commit-card-title">${cm.title}</div>
+              <div class="commit-card-milestone-lbl">Done when</div>
+              <div class="commit-card-milestone">${cm.milestone}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- KEY ACTIONS -->
+      <div class="plan-sec">
+        <div class="plan-sec-eyebrow">Recommended</div>
+        <h2 class="plan-sec-title">Key actions to meet your goals</h2>
         <p class="plan-sec-helper">Suggested focus areas based on your grade, season, and challenge. These are not tasks — use the Task Board to take action on each one.</p>
         <div class="prio-grid">
           ${prios.map((p,i)=>`
