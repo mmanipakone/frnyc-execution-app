@@ -413,7 +413,7 @@ input,select,textarea{font:inherit}
       </div>
       <div class="ob-nav">
         <button class="btn-ghost" onclick="obBack()">← Back</button>
-        <button class="btn-primary" onclick="obFinish()">Generate My Plan →</button>
+        <button class="btn-primary" onclick="obFinish()">Build My Recruitment & Retention Plan →</button>
       </div>
     </div>
   </div>
@@ -450,8 +450,8 @@ input,select,textarea{font:inherit}
 <!-- MODAL -->
 <div id="modal" hidden>
   <div class="modal-card">
-    <div class="modal-title">What did you do to resolve this?</div>
-    <div class="modal-sub">Your note will appear in the Coach Output so your coach knows what was done.</div>
+    <div class="modal-title">What did your school do to fix this?</div>
+    <div class="modal-sub">Add a brief note — it will appear in your coach summary so your FRNYC coach can see what was done.</div>
     <textarea class="modal-ta" id="modal-note" placeholder="e.g. We held a team meeting on Oct 12 and named Ms. Rivera as FRNYC lead..."></textarea>
     <div class="modal-actions">
       <button class="btn-sm btn-sm-ghost" onclick="closeModal()">Cancel</button>
@@ -721,13 +721,50 @@ const COACH_LF = {
 // ─── STATE ─────────────────────────────────────────────────────────────────
 const SK = 'frnyc_s';
 let S;
-function loadS(){
-  try{ S = JSON.parse(localStorage.getItem(SK)); } catch(e){ S = null; }
-  if(!S) S = {school:'',grade:'9',season:'fall',challenge:'multiple',note:'',
+
+function newState(){
+  return {school:'',grade:'9',season:'fall',challenge:'multiple',note:'',
     done:[],riskStatus:{},riskNotes:{},onboarded:false,view:'plan',
     tPhase:'awareness',tGrade:'all',tSeason:'all'};
 }
-function saveS(){ localStorage.setItem(SK,JSON.stringify(S)); }
+
+function loadS(){
+  try{
+    const raw = localStorage.getItem(SK);
+    if(!raw){ S = newState(); return; }
+    const p = JSON.parse(raw);
+    // Reject data that isn't a valid saved plan from this app
+    if(!p || typeof p !== 'object' || p.onboarded !== true){
+      localStorage.removeItem(SK);
+      S = newState(); return;
+    }
+    // Validate and migrate every field — never trust raw localStorage
+    S = {
+      school: (typeof p.school === 'string' && p.school.trim()) ? p.school.trim() : '',
+      grade: ['8','9','10','11','12','multiple'].includes(p.grade) ? p.grade : '9',
+      season: ['fall','winter','spring','summer'].includes(p.season) ? p.season : 'fall',
+      challenge: ['recruitment','retention','ecc','scheduling','multiple'].includes(p.challenge) ? p.challenge : 'multiple',
+      note: typeof p.note === 'string' ? p.note : '',
+      done: Array.isArray(p.done) ? p.done.filter(x=>typeof x==='string') : [],
+      riskStatus: (p.riskStatus && typeof p.riskStatus==='object') ? p.riskStatus : {},
+      riskNotes: (p.riskNotes && typeof p.riskNotes==='object') ? p.riskNotes : {},
+      onboarded: true,
+      view: typeof p.view==='string' ? p.view : 'plan',
+      tPhase: typeof p.tPhase==='string' ? p.tPhase : 'awareness',
+      tGrade: typeof p.tGrade==='string' ? p.tGrade : 'all',
+      tSeason: typeof p.tSeason==='string' ? p.tSeason : 'all'
+    };
+  } catch(e){
+    console.warn('[FRNYC] Could not load saved plan, starting fresh.', e);
+    try{ localStorage.removeItem(SK); }catch(_){}
+    S = newState();
+  }
+}
+
+function saveS(){
+  try{ localStorage.setItem(SK, JSON.stringify(S)); }
+  catch(e){ console.warn('[FRNYC] Could not save plan state.', e); }
+}
 
 // ─── UTILS ──────────────────────────────────────────────────────────────────
 function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
@@ -797,15 +834,42 @@ function genGaps(){
 
 // ─── ONBOARDING ──────────────────────────────────────────────────────────────
 function startOnboarding(){
-  document.getElementById('landing').hidden=true;
-  document.getElementById('onboarding').hidden=false;
-  document.getElementById('ob-school').value=S.school||'';
-  document.getElementById('ob-grade').value=S.grade||'9';
-  document.getElementById('ob-season').value=S.season||'fall';
+  try{
+    // Always begin with a fresh state so stale/old data never pre-populates
+    S = newState();
+    document.getElementById('landing').hidden = true;
+    document.getElementById('onboarding').hidden = false;
+    // Reset to step 1
+    document.getElementById('ob1').hidden = false;
+    document.getElementById('ob2').hidden = true;
+    document.getElementById('od1').classList.add('active');
+    document.getElementById('od2').classList.remove('active');
+    document.getElementById('ob-school').value = '';
+    document.getElementById('ob-grade').value = '9';
+    document.getElementById('ob-season').value = 'fall';
+    // Reset challenge selection to default
+    document.querySelectorAll('.ob-radio').forEach(r=>r.classList.remove('selected'));
+    const def = document.querySelector('.ob-radio[data-default]');
+    if(def) def.classList.add('selected');
+    const defInput = document.querySelector('input[name="ch"][value="multiple"]');
+    if(defInput){ defInput.checked=true; defInput.closest('.ob-radio').classList.add('selected'); }
+  } catch(e){
+    console.error('[FRNYC] Error starting planner:', e);
+  }
 }
+
 function continueApp(){
-  document.getElementById('landing').hidden=true;
-  launchApp();
+  try{
+    if(!S.onboarded || !S.school || !S.school.trim()){
+      console.warn('[FRNYC] No valid saved plan found, starting onboarding instead.');
+      S = newState();
+      startOnboarding(); return;
+    }
+    document.getElementById('landing').hidden = true;
+    launchApp();
+  } catch(e){
+    console.error('[FRNYC] Error continuing saved plan:', e);
+  }
 }
 function selChallenge(el){
   document.querySelectorAll('.ob-radio').forEach(r=>r.classList.remove('selected'));
@@ -857,8 +921,8 @@ function showView(v){
 }
 
 function resetApp(){
-  if(!confirm('Reset your plan and start over?')) return;
-  localStorage.removeItem(SK);
+  if(!confirm('Clear your saved plan and start over? This cannot be undone.')) return;
+  try{ localStorage.removeItem(SK); }catch(e){}
   location.reload();
 }
 
@@ -917,7 +981,7 @@ function renderPlan(){
         <div class="coach-check-list">
           ${checks.map(c=>`<div class="coach-check-item">${c}</div>`).join('')}
         </div>
-        <button class="btn-link" onclick="showView('coach')">Generate full coach summary →</button>
+        <button class="btn-link" onclick="showView('coach')">View full coach summary →</button>
       </div>
 
       <div class="plan-section">
@@ -926,7 +990,7 @@ function renderPlan(){
             <div class="plan-cta-n">${relTasks.length - doneCount}</div>
             <div class="plan-cta-l">tasks remaining for ${gradeLabel(S.grade)} · ${cap(S.season)}</div>
           </div>
-          <button class="btn-white" onclick="showView('tasks')">Open Task Board →</button>
+          <button class="btn-white" onclick="showView('tasks')">View all tasks →</button>
         </div>
       </div>
     </div>`;
@@ -1241,14 +1305,19 @@ function showToast(msg){
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 loadS();
-(function(){
-  const saved = S.onboarded && S.school;
+
+// Wire continue button — only show if a real saved plan exists with a school name
+(function initContinueBtn(){
   const btn = document.getElementById('btn-continue');
-  if(saved){
-    btn.style.display='inline-flex';
-    btn.textContent='Continue ' + S.school + ' Plan →';
+  if(!btn){ console.warn('[FRNYC] btn-continue element not found'); return; }
+  const hasValidPlan = S.onboarded === true
+    && typeof S.school === 'string'
+    && S.school.trim().length > 0;
+  if(hasValidPlan){
+    btn.style.display = 'inline-flex';
+    btn.textContent = 'Continue ' + S.school.trim() + ' Plan →';
   } else {
-    btn.style.display='none';
+    btn.style.display = 'none';
   }
 })();
 </script>
