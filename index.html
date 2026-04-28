@@ -306,8 +306,8 @@ input,select,textarea{font:inherit}
 
 /* PRINT */
 /* ── PLAN BANNER ──────────────────────────────── */
-.plan-banner{position:relative;min-height:300px;display:flex;align-items:flex-end;overflow:hidden;background:var(--navy)}
-.plan-banner-bg{position:absolute;inset:0;background-size:cover;background-position:center top}
+.plan-banner{position:relative;min-height:230px;display:flex;align-items:flex-end;overflow:hidden;background:var(--navy)}
+.plan-banner-bg{position:absolute;inset:0;background-size:cover;background-position:50% 20%}
 .plan-banner-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,30,60,.96) 0%,rgba(10,30,60,.62) 48%,rgba(0,0,0,.3) 100%)}
 .plan-banner-c{position:relative;z-index:1;padding:1rem 1.5rem 1.75rem;width:100%;max-width:900px;margin:0 auto}
 .plan-banner-school{font-size:1.75rem;font-weight:900;color:#fff;letter-spacing:-.02em;line-height:1.1;margin-bottom:.375rem}
@@ -900,18 +900,18 @@ const COACH_LF = {
 
 // ─── COMMITMENT POOL ──────────────────────────────────────────────────────
 const COMMITMENTS = [
-  {id:'cm1',title:'Survey & build your recruitment funnel',milestone:'90%+ of target students surveyed; high-interest list created',taskIds:['e1'],grades:['9','10','multiple'],seasons:['fall'],ch:['recruitment','retention','multiple']},
-  {id:'cm2',title:'Host a family information session',milestone:'Session held with 15+ families; follow-up sent within 48 hours',taskIds:['e2'],grades:['9'],seasons:['fall','winter'],ch:['recruitment','retention','multiple']},
-  {id:'cm3',title:'Build advisory cohort structures',milestone:'All students in cohorts; advisors named; first 3 meetings completed',taskIds:['c1'],grades:['9','10','multiple'],seasons:['fall'],ch:['retention','recruitment','multiple']},
-  {id:'cm4',title:'Complete individual 4-year plans',milestone:'100% of enrolled students have a signed 4-year plan on file',taskIds:['c2'],grades:['9','multiple'],seasons:['fall','winter','spring'],ch:['retention','ecc','multiple']},
-  {id:'cm5',title:'Confirm work-based learning placements',milestone:'100% of WBL-eligible students have confirmed placements',taskIds:['x1'],grades:['11','12'],seasons:['fall'],ch:['ecc','retention','multiple']},
-  {id:'cm6',title:'Submit ECC applications',milestone:'All eligible students submitted and confirmed',taskIds:['c4'],grades:['11','12'],seasons:['winter','spring'],ch:['ecc','multiple']},
-  {id:'cm7',title:'Protect FRNYC in the master schedule',milestone:'Zero FRNYC students have unresolved scheduling conflicts',taskIds:['c3'],grades:['all'],seasons:['spring','summer'],ch:['scheduling','multiple']},
-  {id:'cm8',title:'Establish bi-weekly team meetings',milestone:'Core team meeting bi-weekly; first 3 meetings documented',taskIds:['c5'],grades:['all'],seasons:['fall'],ch:['all']},
-  {id:'cm9',title:'Launch student ambassador program',milestone:'Ambassadors trained and deployed in 2+ recruitment settings',taskIds:['e3'],grades:['10','11'],seasons:['fall'],ch:['recruitment','multiple']},
-  {id:'cm10',title:'Build an early warning system',milestone:'Warning indicators defined; first check-in round completed',taskIds:['x5'],grades:['9','10'],seasons:['fall','winter'],ch:['retention','multiple']},
-  {id:'cm11',title:'Complete mid-year cohort review',milestone:'Every student has a status; all at-risk students have support plans',taskIds:['x4'],grades:['all'],seasons:['winter'],ch:['retention','ecc','multiple']},
-  {id:'cm12',title:'Build feeder school pipeline',milestone:'2+ feeder visits completed; interest list built',taskIds:['a1','e4'],grades:['8','9'],seasons:['fall','winter'],ch:['recruitment','multiple']}
+  {id:'cm1',title:'Recruit your full student cohort',milestone:'All target-grade students reached; high-interest list built and active',taskIds:['e1','a3'],grades:['9','10','multiple'],seasons:['fall','winter'],ch:['recruitment','retention','multiple']},
+  {id:'cm2',title:'Secure family buy-in for every enrolled student',milestone:'Family session held with 15+ attendees; follow-up sent within 48 hours',taskIds:['e2'],grades:['9'],seasons:['fall','winter'],ch:['recruitment','retention','multiple']},
+  {id:'cm3',title:'Keep every enrolled student on track to next grade',milestone:'All students placed in cohorts with an assigned advisor; first 3 check-ins complete',taskIds:['c1','c2'],grades:['9','10','multiple'],seasons:['fall'],ch:['retention','recruitment','multiple']},
+  {id:'cm4',title:'Complete a signed 4-year plan for every student',milestone:'100% of enrolled students have a signed 4-year plan on file',taskIds:['c2'],grades:['9','multiple'],seasons:['fall','winter','spring'],ch:['retention','ecc','multiple']},
+  {id:'cm5',title:'Place every eligible student in a WBL experience',milestone:'100% of WBL-eligible students have a confirmed placement before semester end',taskIds:['x1'],grades:['11','12'],seasons:['fall'],ch:['ecc','retention','multiple']},
+  {id:'cm6',title:'Get every eligible student through ECC application',milestone:'All eligible students submitted and confirmed by the deadline',taskIds:['c4'],grades:['11','12'],seasons:['winter','spring'],ch:['ecc','multiple']},
+  {id:'cm7',title:'Protect every FRNYC seat in the master schedule',milestone:'Zero students have unresolved scheduling conflicts entering the next school year',taskIds:['c3'],grades:['all'],seasons:['spring','summer'],ch:['scheduling','multiple']},
+  {id:'cm8',title:'Build a functioning school FRNYC leadership team',milestone:'Core team meets bi-weekly with documented agendas; first 3 meetings complete',taskIds:['c5'],grades:['all'],seasons:['fall'],ch:['all']},
+  {id:'cm9',title:'Activate peer recruitment through student ambassadors',milestone:'5+ ambassadors trained and deployed in at least 2 recruitment settings',taskIds:['e3'],grades:['10','11'],seasons:['fall'],ch:['recruitment','multiple']},
+  {id:'cm10',title:'Identify and support every at-risk student',milestone:'Warning indicators defined; all at-risk students have a documented support plan',taskIds:['x5'],grades:['9','10'],seasons:['fall','winter'],ch:['retention','multiple']},
+  {id:'cm11',title:'Complete a full mid-year cohort review',milestone:'Every enrolled student has a status; all at-risk students have support plans on file',taskIds:['x4'],grades:['all'],seasons:['winter'],ch:['retention','ecc','multiple']},
+  {id:'cm12',title:'Build a feeder school pipeline for your next cohort',milestone:'2+ feeder school visits completed; interest list created for incoming students',taskIds:['a1','e4'],grades:['8','9'],seasons:['fall','winter'],ch:['recruitment','multiple']}
 ];
 
 // ─── STATE ─────────────────────────────────────────────────────────────────
@@ -1228,37 +1228,11 @@ function renderPlan(){
 
     <div class="view-inner">
 
-      <!-- START HERE (PRIMARY) -->
-      ${topPrio?`
-      <div class="start-here-module">
-        <div>
-          <div class="start-here-eyebrow">Start here</div>
-          <div class="start-here-helper">Most schools should start here</div>
-          <div class="start-here-title">${topPrio.title}</div>
-          <div class="start-here-sub">Next action: ${topPrio.action}</div>
-        </div>
-        <button class="btn-start-tasks" onclick="showView('tasks')">Start with this action →</button>
-      </div>`:''}
-
-      <!-- PROGRESS BAR -->
-      <div class="plan-prog-section">
-        <div class="plan-prog-hd">
-          <div>
-            <div class="plan-prog-label">Progress toward your goals</div>
-            <div class="plan-prog-sub">${cmsDone} of ${cmsTotal} key actions completed</div>
-          </div>
-          <div class="plan-prog-pct">${progPct}%</div>
-        </div>
-        <div class="plan-prog-bar-bg">
-          <div class="plan-prog-bar-fill" style="width:${progPct}%"></div>
-        </div>
-      </div>
-
-      <!-- YOUR ENROLLMENT GOALS -->
+      <!-- YOUR ENROLLMENT COMMITMENTS (PRIMARY SECTION) -->
       <div class="plan-sec">
-        <div class="plan-sec-eyebrow">Your plan</div>
-        <h2 class="plan-sec-title">Your Enrollment Goals</h2>
-        <p class="plan-sec-helper">What your school is working toward for ${gradeLabel(S.grade)} · ${cap(S.season)}. Goals update automatically as your team completes actions in the Task Board.</p>
+        <div class="plan-sec-eyebrow">Your Plan</div>
+        <h2 class="plan-sec-title">Your Enrollment Commitments</h2>
+        <p class="plan-sec-helper">What your school is committed to for ${gradeLabel(S.grade)} · ${cap(S.season)}. Each commitment tracks to a clear milestone. Complete actions in the Task Board to build progress toward each one.</p>
         <div class="commit-grid">
           ${cms.map(cm=>{
             const st=commitStatus(cm);
@@ -1272,11 +1246,37 @@ function renderPlan(){
         </div>
       </div>
 
-      <!-- KEY ACTIONS -->
+      <!-- PROGRESS BAR -->
+      <div class="plan-prog-section">
+        <div class="plan-prog-hd">
+          <div>
+            <div class="plan-prog-label">Progress toward your plan</div>
+            <div class="plan-prog-sub">Based on actions completed toward your recruitment and retention goals</div>
+          </div>
+          <div class="plan-prog-pct">${progPct}%</div>
+        </div>
+        <div class="plan-prog-bar-bg">
+          <div class="plan-prog-bar-fill" style="width:${progPct}%"></div>
+        </div>
+      </div>
+
+      <!-- START HERE -->
+      ${topPrio?`
+      <div class="start-here-module">
+        <div>
+          <div class="start-here-eyebrow">Start here</div>
+          <div class="start-here-helper">The highest-priority action for your school right now</div>
+          <div class="start-here-title">${topPrio.title}</div>
+          <div class="start-here-sub">Next action: ${topPrio.action}</div>
+        </div>
+        <button class="btn-start-tasks" onclick="showView('tasks')">Start with this action →</button>
+      </div>`:''}
+
+      <!-- KEY ACTIONS TO MEET YOUR COMMITMENTS -->
       <div class="plan-sec">
         <div class="plan-sec-eyebrow">Recommended</div>
-        <h2 class="plan-sec-title">Key actions to meet your goals</h2>
-        <p class="plan-sec-helper">Suggested focus areas based on your grade, season, and challenge. These are not tasks — use the Task Board to take action on each one.</p>
+        <h2 class="plan-sec-title">Key actions to meet your commitments</h2>
+        <p class="plan-sec-helper">Focus areas based on your grade, season, and challenge. Go to the Task Board to take action on each one.</p>
         <div class="prio-grid">
           ${prios.map((p,i)=>`
             <div class="prio-info-card">
