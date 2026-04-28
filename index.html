@@ -307,9 +307,9 @@ input,select,textarea{font:inherit}
 /* PRINT */
 /* ── PLAN BANNER ──────────────────────────────── */
 .plan-banner{position:relative;min-height:300px;display:flex;align-items:flex-end;overflow:hidden;background:var(--navy)}
-.plan-banner-bg{position:absolute;inset:0;background-size:cover;background-position:center 40%}
-.plan-banner-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,30,60,.95) 0%,rgba(10,30,60,.6) 45%,rgba(0,0,0,.35) 100%)}
-.plan-banner-c{position:relative;z-index:1;padding:2rem 1.5rem 1.75rem;width:100%;max-width:900px;margin:0 auto}
+.plan-banner-bg{position:absolute;inset:0;background-size:cover;background-position:center 15%}
+.plan-banner-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,30,60,.96) 0%,rgba(10,30,60,.62) 48%,rgba(0,0,0,.3) 100%)}
+.plan-banner-c{position:relative;z-index:1;padding:1rem 1.5rem 1.75rem;width:100%;max-width:900px;margin:0 auto}
 .plan-banner-school{font-size:1.75rem;font-weight:900;color:#fff;letter-spacing:-.02em;line-height:1.1;margin-bottom:.375rem}
 .plan-banner-ctx{font-size:.7rem;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.14em;font-weight:700;margin-bottom:.875rem}
 .plan-banner-summary{font-size:.92rem;color:rgba(255,255,255,.85);max-width:540px;line-height:1.65;margin-bottom:0}
@@ -320,6 +320,29 @@ input,select,textarea{font:inherit}
 .plan-metric{text-align:center}
 .plan-metric-n{font-size:2.25rem;font-weight:900;color:#fff;line-height:1}
 .plan-metric-l{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.72);margin-top:.375rem}
+
+/* ── ENROLLMENT COMMITMENTS ─────────────── */
+.commit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem}
+.commit-card{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:1.125rem 1.25rem;border-top:3px solid var(--g300)}
+.commit-card.complete{border-top-color:#059669}
+.commit-card.in-progress{border-top-color:var(--gold)}
+.commit-card-status{display:inline-block;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:.2rem .6rem;border-radius:20px;margin-bottom:.625rem}
+.commit-card-status.not-started{background:var(--g100);color:var(--g600)}
+.commit-card-status.in-progress{background:#FEF3C7;color:#92400E}
+.commit-card-status.complete{background:#D1FAE5;color:#065F46}
+.commit-card-title{font-size:.875rem;font-weight:800;color:var(--navy);margin-bottom:.375rem;line-height:1.3}
+.commit-card-milestone-lbl{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--g400);margin-bottom:.15rem}
+.commit-card-milestone{font-size:.75rem;color:var(--g600);line-height:1.5}
+
+/* ── PLAN PROGRESS BAR ──────────────────── */
+.plan-prog-section{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:1.25rem 1.5rem;margin-bottom:2rem}
+.plan-prog-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.875rem}
+.plan-prog-label{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--navy)}
+.plan-prog-sub{font-size:.75rem;color:var(--g600);margin-top:.25rem;line-height:1.5;max-width:420px}
+.plan-prog-pct{font-size:1.75rem;font-weight:900;color:var(--navy);line-height:1;flex-shrink:0}
+.plan-prog-bar-bg{background:var(--g100);border-radius:6px;height:10px;overflow:hidden}
+.plan-prog-bar-fill{height:100%;border-radius:6px;background:#C8102E;transition:width .6s}
+
 .plan-qs{display:flex;gap:2rem;flex-wrap:wrap}
 .plan-qs-item{}
 .plan-qs-n{font-size:1.75rem;font-weight:900;color:#fff;line-height:1}
@@ -875,6 +898,22 @@ const COACH_LF = {
   'all-spring':['Showcase planned with external guests confirmed','Schedule protected for next year','End-of-year data collection complete']
 };
 
+// ─── COMMITMENT POOL ──────────────────────────────────────────────────────
+const COMMITMENTS = [
+  {id:'cm1',title:'Survey & build your recruitment funnel',milestone:'90%+ of target students surveyed; high-interest list created',taskIds:['e1'],grades:['9','10','multiple'],seasons:['fall'],ch:['recruitment','retention','multiple']},
+  {id:'cm2',title:'Host a family information session',milestone:'Session held with 15+ families; follow-up sent within 48 hours',taskIds:['e2'],grades:['9'],seasons:['fall','winter'],ch:['recruitment','retention','multiple']},
+  {id:'cm3',title:'Build advisory cohort structures',milestone:'All students in cohorts; advisors named; first 3 meetings completed',taskIds:['c1'],grades:['9','10','multiple'],seasons:['fall'],ch:['retention','recruitment','multiple']},
+  {id:'cm4',title:'Complete individual 4-year plans',milestone:'100% of enrolled students have a signed 4-year plan on file',taskIds:['c2'],grades:['9','multiple'],seasons:['fall','winter','spring'],ch:['retention','ecc','multiple']},
+  {id:'cm5',title:'Confirm work-based learning placements',milestone:'100% of WBL-eligible students have confirmed placements',taskIds:['x1'],grades:['11','12'],seasons:['fall'],ch:['ecc','retention','multiple']},
+  {id:'cm6',title:'Submit ECC applications',milestone:'All eligible students submitted and confirmed',taskIds:['c4'],grades:['11','12'],seasons:['winter','spring'],ch:['ecc','multiple']},
+  {id:'cm7',title:'Protect FRNYC in the master schedule',milestone:'Zero FRNYC students have unresolved scheduling conflicts',taskIds:['c3'],grades:['all'],seasons:['spring','summer'],ch:['scheduling','multiple']},
+  {id:'cm8',title:'Establish bi-weekly team meetings',milestone:'Core team meeting bi-weekly; first 3 meetings documented',taskIds:['c5'],grades:['all'],seasons:['fall'],ch:['all']},
+  {id:'cm9',title:'Launch student ambassador program',milestone:'Ambassadors trained and deployed in 2+ recruitment settings',taskIds:['e3'],grades:['10','11'],seasons:['fall'],ch:['recruitment','multiple']},
+  {id:'cm10',title:'Build an early warning system',milestone:'Warning indicators defined; first check-in round completed',taskIds:['x5'],grades:['9','10'],seasons:['fall','winter'],ch:['retention','multiple']},
+  {id:'cm11',title:'Complete mid-year cohort review',milestone:'Every student has a status; all at-risk students have support plans',taskIds:['x4'],grades:['all'],seasons:['winter'],ch:['retention','ecc','multiple']},
+  {id:'cm12',title:'Build feeder school pipeline',milestone:'2+ feeder visits completed; interest list built',taskIds:['a1','e4'],grades:['8','9'],seasons:['fall','winter'],ch:['recruitment','multiple']}
+];
+
 // ─── STATE ─────────────────────────────────────────────────────────────────
 const SK = 'frnyc_s';
 let S;
@@ -1015,6 +1054,43 @@ function genGaps(){
   return gaps.slice(0,4);
 }
 
+function genCommitments(){
+  const c=S.challenge;
+  const scored=COMMITMENTS.map(cm=>{
+    let sc=0;
+    if(gradeMatch({grades:cm.grades},S.grade)) sc+=3;
+    if(seasonMatch({seasons:cm.seasons},S.season)) sc+=3;
+    const chArr=cm.ch;
+    if(chArr==='all') sc+=3;
+    else if(Array.isArray(chArr)&&(chArr.includes(c)||chArr.includes('all'))) sc+=3;
+    else if(c==='multiple') sc+=1;
+    return {...cm,sc};
+  });
+  return scored.sort((a,b)=>b.sc-a.sc).slice(0,4);
+}
+
+function commitStatus(cm){
+  const done=cm.taskIds.filter(id=>S.done.includes(id)).length;
+  if(done===cm.taskIds.length) return 'complete';
+  if(done>0) return 'in-progress';
+  return 'not-started';
+}
+
+function commitStatusLabel(st){
+  return {complete:'Complete ✓','in-progress':'In Progress','not-started':'Not Started'}[st]||'Not Started';
+}
+
+function commitmentProgress(){
+  const cms=genCommitments();
+  const cTotal=cms.reduce((s,cm)=>s+cm.taskIds.length,0);
+  const cDone=cms.reduce((s,cm)=>s+cm.taskIds.filter(id=>S.done.includes(id)).length,0);
+  const taskScore=cTotal?cDone/cTotal:0;
+  const rTotal=RISKS.length;
+  const rDone=RISKS.filter(r=>riskStatus(r.id)==='resolved').length;
+  const riskScore=rTotal?rDone/rTotal:0;
+  return Math.round((taskScore*0.65+riskScore*0.35)*100);
+}
+
 // ─── ONBOARDING ──────────────────────────────────────────────────────────────
 function hide(id){ var el=document.getElementById(id); if(el) el.style.display='none'; }
 function show(id,disp){ var el=document.getElementById(id); if(el) el.style.display=(disp||'block'); }
@@ -1120,9 +1196,11 @@ function renderPlan(){
   const prios=genPriorities();
   const actRisks=genActiveRisks();
   const checks=getCoachLF();
+  const cms=genCommitments();
   const relTasks=TASKS.filter(t=>gradeMatch(t,S.grade)&&seasonMatch(t,S.season));
   const doneCount=relTasks.filter(t=>S.done.includes(t.id)).length;
-  const remaining=relTasks.length-doneCount;
+  const progPct=commitmentProgress();
+  const topPrio=prios[0];
 
   document.getElementById('v-plan').innerHTML=`
     <!-- PHOTO BANNER -->
@@ -1148,11 +1226,54 @@ function renderPlan(){
 
     <div class="view-inner">
 
+      <!-- ENROLLMENT COMMITMENTS -->
+      <div class="plan-sec">
+        <div class="plan-sec-eyebrow">Your plan</div>
+        <h2 class="plan-sec-title">Enrollment Commitments</h2>
+        <p class="plan-sec-helper">Key commitments for ${gradeLabel(S.grade)} · ${cap(S.season)} based on your challenge focus. Mark tasks complete in the Task Board as your team acts on each one.</p>
+        <div class="commit-grid">
+          ${cms.map(cm=>{
+            const st=commitStatus(cm);
+            return `<div class="commit-card ${st}">
+              <span class="commit-card-status ${st}">${commitStatusLabel(st)}</span>
+              <div class="commit-card-title">${cm.title}</div>
+              <div class="commit-card-milestone-lbl">Done when</div>
+              <div class="commit-card-milestone">${cm.milestone}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- PROGRESS BAR -->
+      <div class="plan-prog-section">
+        <div class="plan-prog-hd">
+          <div>
+            <div class="plan-prog-label">Progress toward your plan</div>
+            <div class="plan-prog-sub">Based on actions completed toward your recruitment and retention goals</div>
+          </div>
+          <div class="plan-prog-pct">${progPct}%</div>
+        </div>
+        <div class="plan-prog-bar-bg">
+          <div class="plan-prog-bar-fill" style="width:${progPct}%"></div>
+        </div>
+      </div>
+
+      <!-- START HERE MODULE -->
+      ${topPrio?`
+      <div class="start-here-module">
+        <div>
+          <div class="start-here-eyebrow">Start here</div>
+          <div class="start-here-title">${topPrio.title}</div>
+          <div class="start-here-sub">Next action: ${topPrio.action}</div>
+        </div>
+        <button class="btn-start-tasks" onclick="showView('tasks')">Start with this action →</button>
+      </div>`:''}
+
       <!-- RECOMMENDED PRIORITIES -->
       <div class="plan-sec">
         <div class="plan-sec-eyebrow">Recommended priorities</div>
         <h2 class="plan-sec-title">Where to focus next</h2>
-        <p class="plan-sec-helper">These are suggested focus areas based on your grade, season, and selected challenge. They are not tasks — use the Task Board to take action on each one.</p>
+        <p class="plan-sec-helper">Suggested focus areas based on your grade, season, and challenge. These are not tasks — use the Task Board to take action on each one.</p>
         <div class="prio-grid">
           ${prios.map((p,i)=>`
             <div class="prio-info-card">
@@ -1165,16 +1286,6 @@ function renderPlan(){
               </div>
             </div>`).join('')}
         </div>
-      </div>
-
-      <!-- START HERE MODULE -->
-      <div class="start-here-module">
-        <div>
-          <div class="start-here-eyebrow">Start here</div>
-          <div class="start-here-title">Ready to take action?</div>
-          <div class="start-here-sub">${remaining} step-by-step tasks are ready for ${gradeLabel(S.grade)} · ${cap(S.season)}.</div>
-        </div>
-        <button class="btn-start-tasks" onclick="showView('tasks')">Open related tasks →</button>
       </div>
 
       <!-- RISK STRIP -->
